@@ -7,9 +7,9 @@ from sqlalchemy import (
     Boolean,
     DateTime,
     Text,
-    Float,
     ForeignKey,
 )
+from sqlalchemy.orm import relationship
 
 import database
 
@@ -29,6 +29,8 @@ class Product(database.Base):
     is_avaialable = Column(Boolean)
     is_purchased = Column(Boolean, default=False)
     create_date = Column(DateTime, default=datetime.now)
+
+    user = relationship("User", back_populates="products")
 
     def __repr__(self) -> str:
         return f"{self.__class__.__tablename__} ({self.user_id} - {self.link})"

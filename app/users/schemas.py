@@ -13,6 +13,7 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: Optional[bool] = True
+    products: list
 
     class Config:
         orm_mode = True
