@@ -18,3 +18,7 @@ class Comment(CommentBase):
     id: int
     create_date: datetime
     update_date: datetime
+
+
+class CommentUpdate(BaseModel):
+    content: str

@@ -25,3 +25,10 @@ async def read_product_comments(
     product_id: int, db: Session = Depends(database.get_db)
 ):
     return await crud.get_product_comments(db, product_id)
+
+
+@router.put("/update/{comment_id}")
+async def update_comment(
+    comment_id: int, comment: schemas.CommentUpdate, db: Session = Depends(database.get_db)
+):
+    return await crud.update_comment(db=db, comment_id=comment_id, comment=comment)

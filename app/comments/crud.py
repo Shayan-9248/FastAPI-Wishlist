@@ -1,4 +1,4 @@
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from . import models, schemas
@@ -24,3 +24,20 @@ async def create_comment(
 
 async def get_product_comments(db: Session, product_id: int):
     return db.query(models.Comment).filter(models.Comment.id == product_id).all()
+
+
+async def update_comment(comment_id: int, db: Session, comment: schemas.CommentUpdate):
+    db_folder = db.query(models.Comment).filter(
+        models.Comment.id == comment_id
+    )
+    if not db_folder.first():
+        raise HTTPException(
+            status_code=404, detail=f"Comment with id {comment_id} does not exists."
+        )
+    db_folder.update(
+        {
+            models.Comment.content: comment.content,
+        }
+    )
+    db.commit()
+    return "Done"
