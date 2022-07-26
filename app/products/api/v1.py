@@ -18,3 +18,8 @@ async def create_product_link(
     current_user: User = Depends(get_current_active_user),
 ):
     return await crud.create_product_link(product, db, current_user)
+
+
+@router.get("/all", response_model=list[schemas.Product])
+async def get_all_products(skip: int = 0, limit: int = 100, db: Session = Depends(database.get_db)):
+    return await crud.get_all_products(skip, limit, db)

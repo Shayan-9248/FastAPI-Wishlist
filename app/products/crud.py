@@ -48,3 +48,7 @@ async def create_product_link(
     db.commit()
 
     return product_db
+
+
+async def get_all_products(skip: int, limit: int, db: Session):
+    return db.query(models.Product).offset(skip).limit(limit).all()
