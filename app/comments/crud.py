@@ -20,3 +20,7 @@ async def create_comment(
     db.commit()
     db.refresh(new_comment)
     return new_comment
+
+
+async def get_product_comments(db: Session, product_id: int):
+    return db.query(models.Comment).filter(models.Comment.id == product_id).all()
