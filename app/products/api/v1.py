@@ -28,7 +28,5 @@ async def get_all_products(
 
 
 @router.get("/unpurchased-list", response_model=list[schemas.Product])
-async def get_unpurchased_products(
-    db: Session = Depends(database.get_db)
-):
+async def get_unpurchased_products(db: Session = Depends(database.get_db)):
     return await crud.get_unpurchased_products(db)

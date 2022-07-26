@@ -21,5 +21,7 @@ async def create(
 
 
 @router.get("/{product_id}")
-async def read_product_comments(product_id: int, db: Session = Depends(database.get_db)):
+async def read_product_comments(
+    product_id: int, db: Session = Depends(database.get_db)
+):
     return await crud.get_product_comments(db, product_id)

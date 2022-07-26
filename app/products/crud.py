@@ -55,7 +55,4 @@ async def get_all_products(skip: int, limit: int, db: Session):
 
 
 async def get_unpurchased_products(db: Session):
-    return (
-        db.query(models.Product)
-        .filter(models.Product.is_purchased == False).all()
-    )
+    return db.query(models.Product).filter(models.Product.is_purchased == False).all()
