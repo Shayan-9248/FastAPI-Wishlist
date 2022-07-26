@@ -11,6 +11,10 @@ async def create_product_link(
     db: Session, 
     current_user: get_current_active_user
 ):
+    """
+    Choose your wish product from this website:
+        https://primashop.ir/
+    """
     product_db = models.Product(link=product_link.link, user_id=current_user.id)
     db.add(product_db)
     db.commit()
