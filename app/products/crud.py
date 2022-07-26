@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup
 import requests
 
 from users.authentication import get_current_active_user
@@ -8,8 +8,8 @@ from . import schemas, models
 
 async def create_product_link(
     product_link: schemas.ProductCreate,
-    db: Session, 
-    current_user: get_current_active_user
+    db: Session,
+    current_user: get_current_active_user,
 ):
     """
     Choose your wish product from this website:
@@ -42,7 +42,7 @@ async def create_product_link(
             models.Product.unit_price: unit_price,
             models.Product.discount: discount,
             models.Product.total_price: total_price,
-            models.Product.score: score
+            models.Product.score: score,
         }
     )
     db.commit()
@@ -52,3 +52,10 @@ async def create_product_link(
 
 async def get_all_products(skip: int, limit: int, db: Session):
     return db.query(models.Product).offset(skip).limit(limit).all()
+
+
+async def get_unpurchased_products(db: Session):
+    return (
+        db.query(models.Product)
+        .filter(models.Product.is_purchased == False).all()
+    )

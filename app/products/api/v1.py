@@ -21,5 +21,14 @@ async def create_product_link(
 
 
 @router.get("/all", response_model=list[schemas.Product])
-async def get_all_products(skip: int = 0, limit: int = 100, db: Session = Depends(database.get_db)):
+async def get_all_products(
+    skip: int = 0, limit: int = 100, db: Session = Depends(database.get_db)
+):
     return await crud.get_all_products(skip, limit, db)
+
+
+@router.get("/unpurchased-list", response_model=list[schemas.Product])
+async def get_unpurchased_products(
+    db: Session = Depends(database.get_db)
+):
+    return await crud.get_unpurchased_products(db)

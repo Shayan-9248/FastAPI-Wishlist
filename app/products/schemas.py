@@ -12,7 +12,7 @@ class ProductBase(BaseModel):
 
 
 class ProductCreate(ProductBase):
-    pass    
+    pass
 
 
 class Product(ProductBase):
