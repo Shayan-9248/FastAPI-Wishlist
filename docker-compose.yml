@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  app:
+    build: ./app
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+    restart: on-failure
+    depends_on:
+      - pg_db
+    ports:
+     - "8000:8000"
+    networks:
+      - main
+
+  db:
+    image: postgres
+    container_name: pg_db
+    # env_file: .env
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
+    volumes:
+        - pgdata:/var/lib/postgresql/data/
+    networks:
+      - main
+
+
+networks:
+  main:
+
+volumes:
+  pgdata:
