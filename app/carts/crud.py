@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from . import schemas, models
@@ -10,6 +10,19 @@ async def create_cart(db: Session):
     db.commit()
     db.refresh(cart_db)
     return cart_db
+
+
+async def delete_cart(cart_id: str, db: Session):
+    db_cart = db.query(models.Cart).filter(models.Cart.id == cart_id)
+
+    if not db_cart.first():
+        raise HTTPException(
+            status_code=404, detail=f"Cart with id {cart_id} does not exists."
+        )
+
+    db_cart.delete()
+    db.commit()
+    return "Done"
 
 
 async def create_cart_item(cart_item: schemas.CartItemCreate, db: Session):

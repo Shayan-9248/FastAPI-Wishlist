@@ -14,6 +14,11 @@ async def create_cart(db: Session = Depends(database.get_db)):
     return await crud.create_cart(db)
 
 
+@router.delete("/delete/{cart_id}", status_code=204)
+async def delete_cart(cart_id: str, db: Session = Depends(database.get_db)):
+    return await crud.delete_cart(cart_id, db)
+
+
 @router.post("/item/create", status_code=201)
 async def create_cart_item(
     cart_item: schemas.CartItemCreate, db: Session = Depends(database.get_db)
