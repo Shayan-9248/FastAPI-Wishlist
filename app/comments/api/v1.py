@@ -11,7 +11,7 @@ models.database.Base.metadata.create_all(bind=database.engine)
 router = APIRouter(prefix="/comments", tags=["comments"])
 
 
-@router.post("/create")
+@router.post("/create", status_code=201)
 async def create(
     request: schemas.CommentBase,
     db: Session = Depends(database.get_db),
@@ -36,6 +36,6 @@ async def update_comment(
     return await crud.update_comment(db=db, comment_id=comment_id, comment=comment)
 
 
-@router.delete("/delete/{comment_id}")
+@router.delete("/delete/{comment_id}", status_code=204)
 async def delete_comment(comment_id: int, db: Session = Depends(database.get_db)):
     return await crud.delete_comment(db=db, comment_id=comment_id)
