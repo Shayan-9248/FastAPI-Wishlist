@@ -34,15 +34,3 @@ class Product(database.Base):
 
     def __repr__(self) -> str:
         return f"{self.__class__.__tablename__} ({self.user_id} - {self.link})"
-
-
-class ProductBuyer(database.Base):
-    __tablename__ = "product_buyers"
-
-    id = Column(Integer, primary_key=True, index=True)
-    buyer_id = Column(Integer, ForeignKey("users.id"))
-    product_id = Column(Integer, ForeignKey("products.id"))
-    points = Column(Integer)
-
-    def __repr__(self) -> str:
-        return f"{self.__class__.__tablename__} ({self.buyer_id} - {self.product_id} - {self.points})"

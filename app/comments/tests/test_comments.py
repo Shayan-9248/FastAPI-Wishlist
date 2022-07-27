@@ -34,13 +34,14 @@ def test_create_comment():
     session.refresh(fake_product)
 
     auth = client.post(
-        "/sign-in", data={"username": fake_user.email, "password": fake_user.hashed_password}
+        "/sign-in",
+        data={"username": fake_user.email, "password": fake_user.hashed_password},
     )
 
     access_token = auth.json().get("access_token")
 
     response = client.post(
-        "/comments/create", 
+        "/comments/create",
         json={"product_id": fake_product.id, "content": "comment 1"},
         headers={"Authorization": f"bearer {access_token}"},
     )
@@ -60,7 +61,8 @@ def test_update_comment():
     session.refresh(fake_user)
 
     auth = client.post(
-        "/sign-in", data={"username": fake_user.email, "password": fake_user.hashed_password}
+        "/sign-in",
+        data={"username": fake_user.email, "password": fake_user.hashed_password},
     )
 
     access_token = auth.json().get("access_token")
@@ -87,7 +89,8 @@ def test_delete_comment():
     session.refresh(fake_user)
 
     auth = client.post(
-        "/sign-in", data={"username": fake_user.email, "password": fake_user.hashed_password}
+        "/sign-in",
+        data={"username": fake_user.email, "password": fake_user.hashed_password},
     )
 
     access_token = auth.json().get("access_token")
