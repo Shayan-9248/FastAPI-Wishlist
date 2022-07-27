@@ -23,9 +23,9 @@ class Product(database.Base):
     title = Column(String, nullable=True)
     description = Column(Text)
     unit_price = Column(String)
-    discount = Column(Integer)
+    discount = Column(String)
     total_price = Column(String)
-    score = Column(Integer)
+    score = Column(String)
     is_avaialable = Column(Boolean)
     is_purchased = Column(Boolean, default=False)
     create_date = Column(DateTime, default=datetime.now)
@@ -37,7 +37,7 @@ class Product(database.Base):
 
 
 class ProductBuyer(database.Base):
-    __tablename__ = "Product_buyers"
+    __tablename__ = "product_buyers"
 
     id = Column(Integer, primary_key=True, index=True)
     buyer_id = Column(Integer, ForeignKey("users.id"))
