@@ -21,3 +21,7 @@ async def create_cart_item(cart_item: schemas.CartItemCreate, db: Session):
     db.commit()
     db.refresh(cart_item_db)
     return cart_item_db
+
+
+async def get_cart_item(cart_id: str, db: Session):
+    return db.query(models.CartItem).filter(models.CartItem.cart_id == cart_id).all()
