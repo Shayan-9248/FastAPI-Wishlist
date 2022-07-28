@@ -1,3 +1,4 @@
+from fastapi import BackgroundTasks
 from sqlalchemy.orm import Session
 from bs4 import BeautifulSoup
 import requests
@@ -47,7 +48,12 @@ async def create_product_link(
     )
     db.commit()
 
-    return product_db
+
+async def create_product_background(
+    product, db, current_user, background_tasks: BackgroundTasks
+):
+    background_tasks.add_task(create_product_link, product, db, current_user)
+    return "Done"
 
 
 async def get_all_products(skip: int, limit: int, db: Session):

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 
 from users.authentication import get_current_active_user
@@ -14,10 +14,16 @@ router = APIRouter(prefix="/products", tags=["products"])
 @router.post("/create-link")
 async def create_product_link(
     product: schemas.ProductCreate,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(database.get_db),
     current_user: User = Depends(get_current_active_user),
 ):
-    return await crud.create_product_link(product, db, current_user)
+    return await crud.create_product_background(
+        product=product,
+        background_tasks=background_tasks,
+        db=db,
+        current_user=current_user,
+    )
 
 
 @router.get("/all", response_model=list[schemas.Product])
