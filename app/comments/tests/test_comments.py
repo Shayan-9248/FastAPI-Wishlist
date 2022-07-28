@@ -11,7 +11,7 @@ import database
 client = TestClient(app)
 
 
-def test_get_folders():
+def test_get_comments_returns_200():
     faker = Factory.create()
     fake_product = Product(link=faker.name())
     session = Session(bind=database.engine)
@@ -23,7 +23,7 @@ def test_get_folders():
     assert response.status_code == 200
 
 
-def test_create_comment():
+def test_create_comment_returns_201():
     faker = Factory.create()
     fake_product = Product(link=faker.name())
     fake_user = User(email=faker.email(), hashed_password=faker.name())
@@ -48,7 +48,7 @@ def test_create_comment():
     assert response.status_code == 201
 
 
-def test_update_comment():
+def test_update_comment_returns_200():
     faker = Factory.create()
     fake_product = Product(link=faker.name())
     fake_comment = models.Comment(content=faker.name(), product_id=fake_product.id)
@@ -76,7 +76,7 @@ def test_update_comment():
     assert response.status_code == 200
 
 
-def test_delete_comment():
+def test_delete_comment_returns_204():
     faker = Factory.create()
     fake_product = Product(link=faker.name())
     fake_comment = models.Comment(content=faker.name(), product_id=fake_product.id)

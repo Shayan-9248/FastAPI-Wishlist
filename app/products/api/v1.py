@@ -11,7 +11,7 @@ models.database.Base.metadata.create_all(bind=database.engine)
 router = APIRouter(prefix="/products", tags=["products"])
 
 
-@router.post("/create-link")
+@router.post("/create-link", status_code=201)
 async def create_product_link(
     product: schemas.ProductCreate,
     background_tasks: BackgroundTasks,
