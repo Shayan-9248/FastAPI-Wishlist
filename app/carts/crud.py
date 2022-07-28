@@ -37,4 +37,4 @@ async def create_cart_item(cart_item: schemas.CartItemCreate, db: Session):
 
 
 async def get_cart_item(cart_id: str, db: Session):
-    return db.query(models.CartItem).filter(models.CartItem.cart_id == cart_id).all()
+    return db.query(models.CartItem).filter(models.CartItem.cart_id == cart_id).first()

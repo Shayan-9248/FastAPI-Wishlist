@@ -26,6 +26,6 @@ async def create_cart_item(
     return await crud.create_cart_item(cart_item, db)
 
 
-@router.get("/item/{cart_id}")
+@router.get("/item/{cart_id}", response_model=schemas.CartItem)
 async def get_cart_item(cart_id: str, db: Session = Depends(database.get_db)):
     return await crud.get_cart_item(cart_id, db)
