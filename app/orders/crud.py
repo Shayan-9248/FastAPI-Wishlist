@@ -19,3 +19,7 @@ async def create_order(
         db.commit()
         db.refresh(db_order_item)
     return db_order_item
+
+
+async def get_orders(current_user: get_current_active_user, db: Session):
+    return db.query(models.Order).filter(models.Order.user_id == current_user.id).all()

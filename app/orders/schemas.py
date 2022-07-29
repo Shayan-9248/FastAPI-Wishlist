@@ -9,6 +9,7 @@ class Order(BaseModel):
     id: int
     user_id: int
     status: str = "pending"
+    order_items: list = []
 
     class Config:
         orm_mode = True

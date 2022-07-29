@@ -20,6 +20,8 @@ class Order(database.Base):
     status = Column(String(20), Enum(Status), default=Status.PENDING)
     is_paid = Column(Boolean, default=False)
 
+    order_items = relationship("OrderItem", back_populates="order")
+
     def __repr__(self) -> str:
         return f"{self.__class__.__tablename__} ({self.id} - {self.user_id})"
 
@@ -30,6 +32,8 @@ class OrderItem(database.Base):
     id = Column(Integer, primary_key=True, index=True)
     order_id = Column(Integer, ForeignKey("orders.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
+
+    order = relationship("Order", back_populates="order_items")
 
     def __repr__(self) -> str:
         return f"{self.__class__.__tablename__} ({self.order_id} - {self.product_id})"

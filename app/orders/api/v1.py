@@ -18,3 +18,11 @@ async def create_order(
     current_user: User = Depends(get_current_active_user),
 ):
     return await crud.create_order(cart, db, current_user)
+
+
+@router.get("/", response_model=list[schemas.Order])
+async def get_orders(
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(database.get_db),
+):
+    return await crud.get_orders(current_user, db)
